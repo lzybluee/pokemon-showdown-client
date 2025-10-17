@@ -218,7 +218,7 @@ export class PSIcon extends preact.Component<{
 		} else if (this.props.type) {
 			let type = Dex.types.get(this.props.type).name;
 			if (!type) type = '???';
-			let sanitizedType = type.replace(/\?/g, '%3f');
+			let sanitizedType = type.replace(/\?/g, '-');
 			return <img
 				src={`${Dex.resourcePrefix}sprites/types/${sanitizedType}.png`}
 				alt={this.props.hideAlt ? undefined : type}

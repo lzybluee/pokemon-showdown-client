@@ -628,6 +628,7 @@ License: GPLv2
 }
 .leftchooser {
 	float: left;
+	margin: 5px 0 0 10px;
 }
 .chooser em {
 	float: left;
@@ -636,6 +637,7 @@ License: GPLv2
 	border-right: 1px solid #CCCCCC;
 	background: #EEEEEE;
 	font-weight: normal;
+	color: #000000;
 }
 .chooser div {
 	float: left;
@@ -649,6 +651,7 @@ License: GPLv2
 	font-family: Verdana, sans-serif;
 	border-radius: 3px;
 	cursor: pointer;
+	color: #000000;
 }
 .chooser button:hover {
 	border: 1px solid #BBBBBB;

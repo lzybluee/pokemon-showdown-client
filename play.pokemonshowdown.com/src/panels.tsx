@@ -927,7 +927,7 @@ export function PSIcon(
 	if ('type' in props) {
 		let type = Dex.types.get(props.type).name;
 		if (!type) type = '???';
-		let sanitizedType = type.replace(/\?/g, '%3f');
+		let sanitizedType = type.replace(/\?/g, '-');
 		return <img
 			src={`${Dex.resourcePrefix}sprites/types/${sanitizedType}.png`} alt={type}
 			height="14" width="32" class={`pixelated${props.b ? ' b' : ''}`} style="vertical-align:middle"

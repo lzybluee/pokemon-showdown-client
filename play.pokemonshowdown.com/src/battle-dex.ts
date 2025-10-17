@@ -229,16 +229,9 @@ export const Dex = new class implements ModdedDex {
 
 	pokeballs: string[] | null = null;
 
-	resourcePrefix = (() => {
-		let prefix = '';
-		if (window.document?.location?.protocol !== 'http:') prefix = 'https:';
-		return `${prefix}//${window.Config ? Config.routes.client : 'play.pokemonshowdown.com'}/`;
-	})();
+	resourcePrefix = `http://${window.location.host}/play.pokemonshowdown.com/`;
 
-	fxPrefix = (() => {
-		const protocol = (window.document?.location?.protocol !== 'http:') ? 'https:' : '';
-		return `${protocol}//${window.Config ? Config.routes.client : 'play.pokemonshowdown.com'}/fx/`;
-	})();
+	fxPrefix = `http://${window.location.host}/play.pokemonshowdown.com/fx/`;
 
 	loadedSpriteData = { xy: 1, bw: 0 };
 	moddedDexes: { [mod: string]: ModdedDex } = {};
@@ -925,7 +918,7 @@ export const Dex = new class implements ModdedDex {
 	getTypeIcon(type: string | null, b?: boolean) { // b is just for utilichart.js
 		type = this.types.get(type).name;
 		if (!type) type = '???';
-		let sanitizedType = type.replace(/\?/g, '%3f');
+		let sanitizedType = type.replace(/\?/g, '-');
 		return `<img src="${Dex.resourcePrefix}sprites/types/${sanitizedType}.png" alt="${type}" height="14" width="32" class="pixelated${b ? ' b' : ''}" />`;
 	}
 

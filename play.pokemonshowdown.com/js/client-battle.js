@@ -10,6 +10,7 @@
 			this.choice = undefined;
 			/** are move/switch/team-preview controls currently being shown? */
 			this.controlsShown = false;
+			this.speed = 'normal';
 
 			this.battlePaused = false;
 			this.autoTimerActivated = false;
@@ -265,6 +266,54 @@
 			var controlsShown = this.controlsShown;
 			var switchViewpointButton = '<p><button class="button" name="switchViewpoint"><i class="fa fa-random"></i> Switch viewpoint</button></p>';
 			this.controlsShown = false;
+
+			var speedTable = {
+				hyperfast: 'Hyperfast',
+				fast: 'Fast',
+				normal: 'Normal',
+				slow: 'Slow',
+				reallyslow: 'Really Slow'
+			};
+
+			switchViewpointButton += '<div class="chooser leftchooser speedchooser"><em>Speed:</em><div>';
+			for (speed in speedTable) {
+				if (speedTable.hasOwnProperty(speed)) {
+					if (speed == this.speed)
+						switchViewpointButton += '<button value="' + speed + '" class="sel">' + speedTable[speed] + '</button>';
+					else
+						switchViewpointButton += '<button value="' + speed + '">' + speedTable[speed] + '</button>';
+				}
+			}
+			switchViewpointButton += '</div></div>';
+
+			var self = this;
+			this.$el.on('click', '.chooser button', function (e) {
+				self.speed = e.currentTarget.value
+				var $chooser = $(e.currentTarget).closest('.chooser');
+				var valueElem = $chooser.find('button[value=' + self.speed + ']');
+				$chooser.find('button').removeClass('sel');
+				valueElem.addClass('sel');
+
+				var delayTable = {
+					hyperfast: 1,
+					fast: 1,
+					normal: 1,
+					slow: 1000,
+					reallyslow: 3000
+				};
+				var fadeTable = {
+					hyperfast: 40,
+					fast: 50,
+					normal: 300,
+					slow: 500,
+					reallyslow: 1000
+				};
+
+				console.log(self.speed)
+				self.battle.messageShownTime = delayTable[self.speed];
+				self.battle.messageFadeTime = fadeTable[self.speed];
+				self.battle.scene.updateAcceleration();
+			});
 
 			if (this.battle.seeking !== null) {
 
